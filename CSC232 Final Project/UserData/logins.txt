@@ -1,0 +1,35 @@
+Username: admin
+Password: admin
+Email: admin@gmail.com
+
+Username: SGV123
+Password: sgv123
+Email: sgv123@gmail.com
+
+Username: Akmal123
+Password: akmal123
+Email: Akmal123@gmail.com
+
+Username: Akmal1444
+Password: Akmal1414
+Email: Akmal1414@gmail.com
+
+Username: akmal1212
+Password: akmal1212
+Email: akmal1212@gmail.com 
+
+Username: Akmal12
+Password: jom
+Email: Akmal12
+
+Username: saya
+Password: 123
+Email: saya@gmail.com
+
+Username: Kanjo
+Password: kanjo1
+Email: kanjo@gmail.com
+
+Username: Firdaus
+Password: 123
+Email: firdaus@gmail.com

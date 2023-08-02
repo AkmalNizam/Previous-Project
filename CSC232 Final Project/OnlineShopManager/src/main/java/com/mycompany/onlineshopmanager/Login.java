@@ -1,0 +1,360 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.onlineshopmanager;
+
+import java.io.File;
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Akmal Nizam
+ */
+public class Login extends javax.swing.JFrame {
+    
+    File f = new File("C:\\Users\\Akmal Nizam\\Desktop\\CSC232 Final Project\\UserData");
+    String Username, Password, Email;
+    int ln;
+    /**
+     * Creates new form Login
+     */
+    public Login() {
+        initComponents();
+    }
+    
+    void createFolder(){
+        if(!f.exists()){
+            f.mkdirs();
+        }
+    }
+    
+    void readFile(){
+        try{
+        FileReader fr = new FileReader(f+"\\logins.txt");
+        System.out.println("file exits!");
+        }
+        catch(FileNotFoundException ex){
+            try{
+                FileWriter fw = new FileWriter(f+"\\logins.txt");
+                System.out.println("file created");
+            }
+            catch(IOException ex1){
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
+    
+    void addData(String usr, String pswd, String mail){
+        RandomAccessFile raf;
+        try {
+            raf = new RandomAccessFile(f+"\\logins.txt", "rw");
+            for(int i=0;i<ln;i++){
+                raf.readLine();
+            }
+            raf.writeBytes("\r\n");
+            raf.writeBytes("\r\n");
+            raf.writeBytes("Username: "+usr +"\r\n");
+            raf.writeBytes("Password: "+pswd +"\r\n");
+            raf.writeBytes("Email: "+mail);
+        }
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch(IOException ex){
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    void checkData(String usr, String pswd){
+        RandomAccessFile raf;
+        try{
+            raf = new RandomAccessFile(f+"\\logins.txt", "rw");
+            String line = raf.readLine();
+            Username=line.substring(10);
+            Password=raf.readLine().substring(10);
+            Email=raf.readLine().substring(7);
+            if(usr.equals(Username)&pswd.equals(Password)){
+                JOptionPane.showMessageDialog(null,"Password Matched");
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"Wrong User / Password");
+            }
+        }
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch(IOException ex){
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    void countLines(){
+        try {
+            ln=1;
+            RandomAccessFile raf = new RandomAccessFile(f+"\\logins.txt", "rw");
+            for(int i=0; raf.readLine()!=null;i++){
+                ln++;
+                }
+                System.out.println("number of line :"+ln);
+            }
+        
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch(IOException ex){
+             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    void logic(String usr, String pswd){
+        RandomAccessFile raf;
+        try{
+            raf = new RandomAccessFile(f+"\\logins.txt", "rw");
+            for(int i=0;i<ln;i+=4){
+                System.out.println("count "+1);
+                String forUsr = raf.readLine().substring(10);
+                String forPswd = raf.readLine().substring(10);
+                if(usr.equals(forUsr)&pswd.equals(forPswd)){
+                    JOptionPane.showMessageDialog(null,"Password Matched\r\nWelcome to our Store");
+                    this.dispose();
+                    AdminPage pg = new AdminPage();
+                    pg.setVisible(true);
+                }
+                else if(i==(ln-3)){
+                    JOptionPane.showMessageDialog(null,"Wrong User / Password");
+                    break;
+                }
+                for(int k=1;k<=2;k++){
+                    raf.readLine();
+                }
+            }
+            
+        }
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch(IOException ex){
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        Login = new javax.swing.JPanel();
+        name_txt = new javax.swing.JLabel();
+        name_field = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        password_txt = new javax.swing.JLabel();
+        password_field = new javax.swing.JPasswordField();
+        jSeparator3 = new javax.swing.JSeparator();
+        login = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Login.setBackground(new java.awt.Color(32, 33, 50));
+
+        name_txt.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        name_txt.setForeground(new java.awt.Color(204, 255, 255));
+        name_txt.setText("NAME :");
+
+        name_field.setBackground(new java.awt.Color(32, 33, 50));
+        name_field.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        name_field.setForeground(new java.awt.Color(255, 255, 255));
+        name_field.setToolTipText("");
+        name_field.setBorder(null);
+        name_field.setCaretColor(new java.awt.Color(255, 255, 255));
+
+        password_txt.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        password_txt.setForeground(new java.awt.Color(204, 255, 255));
+        password_txt.setText("NEW PASSWORD :");
+
+        password_field.setBackground(new java.awt.Color(32, 33, 50));
+        password_field.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        password_field.setForeground(new java.awt.Color(255, 255, 255));
+        password_field.setBorder(null);
+        password_field.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password_fieldActionPerformed(evt);
+            }
+        });
+
+        login.setBackground(new java.awt.Color(0, 102, 102));
+        login.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        login.setForeground(new java.awt.Color(204, 204, 255));
+        login.setText("LOGIN");
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Freehand521 BT", 0, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("-- LOGIN --");
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Don't have an account?");
+
+        jButton1.setBackground(new java.awt.Color(32, 33, 50));
+        jButton1.setForeground(new java.awt.Color(0, 255, 255));
+        jButton1.setText("Sign Up now.");
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Akmal Nizam\\Desktop\\CSC232 Final Project\\Pic\\SignUp.png")); // NOI18N
+
+        javax.swing.GroupLayout LoginLayout = new javax.swing.GroupLayout(Login);
+        Login.setLayout(LoginLayout);
+        LoginLayout.setHorizontalGroup(
+            LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoginLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(132, 132, 132)
+                .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(password_txt)
+                        .addComponent(name_txt)
+                        .addComponent(name_field)
+                        .addComponent(jSeparator1)
+                        .addComponent(password_field)
+                        .addComponent(jSeparator3)
+                        .addGroup(LoginLayout.createSequentialGroup()
+                            .addGap(17, 17, 17)
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton1))
+                        .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(LoginLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel2)))
+                .addContainerGap(148, Short.MAX_VALUE))
+        );
+        LoginLayout.setVerticalGroup(
+            LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel2)
+                .addGap(29, 29, 29)
+                .addComponent(name_txt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(name_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(password_txt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(password_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(login)
+                .addGap(18, 18, 18)
+                .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        getContentPane().add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Sign_Up signup = new Sign_Up();
+        signup.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void password_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_fieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_password_fieldActionPerformed
+
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+        createFolder();
+        readFile();
+        countLines();
+        logic(name_field.getText(),password_field.getText());
+    }//GEN-LAST:event_loginActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Login().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Login;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JButton login;
+    private javax.swing.JTextField name_field;
+    private javax.swing.JLabel name_txt;
+    private javax.swing.JPasswordField password_field;
+    private javax.swing.JLabel password_txt;
+    // End of variables declaration//GEN-END:variables
+}
